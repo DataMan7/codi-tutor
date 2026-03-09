@@ -72,7 +72,6 @@
         opacity: 0;
         transform: translateY(10px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -158,22 +157,39 @@ code {
     flex-wrap: wrap;
 }
 
+/* Prompt chip styling - consolidated from both definitions */
 .prompt-chip {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
-    padding: 0.5rem 1rem;
-    background: #f3f4f6;
-    border: none;
+    gap: 6px;
+    padding: 8px 16px;
+    background: #f5f5f5;
+    border: 1px solid #e0e0e0;
     border-radius: 20px;
+    font-size: 14px;
     cursor: pointer;
-    font-size: 0.875rem;
     transition: all 0.2s;
+    margin: 4px;
 }
 
 .prompt-chip:hover {
     background: #e5e7eb;
+    border-color: #999;
     transform: translateY(-2px);
+}
+
+.prompt-chip:hover:not(:disabled) {
+    background: #e8e8e8;
+}
+
+.prompt-chip .icon {
+    width: 16px;
+    height: 16px;
+}
+
+.prompt-chip:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .input-form {
@@ -218,75 +234,7 @@ code {
     cursor: not-allowed;
 }
 
-/* Typing indicator */
-.typing-indicator {
-    display: flex;
-    gap: 0.5rem;
-    padding: 1rem;
-    align-self: flex-start;
-}
-
-.typing-indicator span {
-    width: 10px;
-    height: 10px;
-    background: #667eea;
-    border-radius: 50%;
-    animation: bounce 1.4s infinite ease-in-out;
-}
-
-.typing-indicator span:nth-child(1) {
-    animation-delay: 0s;
-}
-
-.typing-indicator span:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.typing-indicator span:nth-child(3) {
-    animation-delay: 0.4s;
-}
-
-@keyframes bounce {
-
-    0%,
-    80%,
-    100% {
-        transform: scale(0);
-    }
-
-    40% {
-        transform: scale(1);
-    }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .message {
-        max-width: 90%;
-    }
-
-    .chat-header {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .quick-prompts {
-        display: none;
-    }
-}
-
-/* Add to your existing CSS */
-.error-message {
-    background-color: #fee;
-    color: #c00;
-    padding: 10px;
-    border-radius: 8px;
-    margin: 10px;
-    text-align: center;
-    border: 1px solid #fcc;
-    font-size: 14px;
-}
-
+/* Typing indicator - consolidated using the second animation style */
 .typing-indicator {
     display: flex;
     gap: 4px;
@@ -295,6 +243,7 @@ code {
     border-radius: 20px;
     width: fit-content;
     margin: 10px;
+    align-self: flex-start;
 }
 
 .typing-indicator span {
@@ -324,32 +273,30 @@ code {
     }
 }
 
-/* Improve prompt chip styling */
-.prompt-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 16px;
-    background: #f5f5f5;
-    border: 1px solid #e0e0e0;
-    border-radius: 20px;
+/* Error message */
+.error-message {
+    background-color: #fee;
+    color: #c00;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px;
+    text-align: center;
+    border: 1px solid #fcc;
     font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin: 4px;
 }
 
-.prompt-chip:hover:not(:disabled) {
-    background: #e8e8e8;
-    border-color: #999;
-}
+/* Responsive */
+@media (max-width: 768px) {
+    .message {
+        max-width: 90%;
+    }
 
-.prompt-chip .icon {
-    width: 16px;
-    height: 16px;
-}
+    .chat-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
 
-.prompt-chip:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+    .quick-prompts {
+        display: none;
+    }
 }
