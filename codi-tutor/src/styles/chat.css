@@ -1,0 +1,355 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header */
+.chat-header {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #667eea;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.mascot {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #f0f9ff;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    color: #0369a1;
+    font-weight: 600;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Messages Area */
+.messages-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.message {
+    display: flex;
+    gap: 1rem;
+    max-width: 80%;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message.user {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    flex-shrink: 0;
+}
+
+.message.user .avatar {
+    background: #667eea;
+    color: white;
+}
+
+.message.bot .avatar {
+    background: #fbbf24;
+    color: #92400e;
+}
+
+.bubble {
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    line-height: 1.6;
+}
+
+.message.user .bubble {
+    background: #667eea;
+    color: white;
+}
+
+.message.bot .bubble {
+    background: white;
+    color: #1f2937;
+}
+
+.timestamp {
+    display: block;
+    font-size: 0.75rem;
+    opacity: 0.6;
+    margin-top: 0.5rem;
+}
+
+/* Code blocks */
+pre {
+    background: #1e1e1e !important;
+    border-radius: 8px;
+    padding: 1rem !important;
+    overflow-x: auto;
+    margin: 0.5rem 0;
+}
+
+code {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+}
+
+/* Input Area */
+.input-area {
+    background: white;
+    padding: 1rem 2rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.quick-prompts {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.prompt-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem 1rem;
+    background: #f3f4f6;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+}
+
+.prompt-chip:hover {
+    background: #e5e7eb;
+    transform: translateY(-2px);
+}
+
+.input-form {
+    display: flex;
+    gap: 1rem;
+}
+
+.input-form input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 30px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input-form input:focus {
+    border-color: #667eea;
+}
+
+.input-form button {
+    padding: 1rem 2rem;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.2s;
+}
+
+.input-form button:hover:not(:disabled) {
+    transform: scale(1.05);
+}
+
+.input-form button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Typing indicator */
+.typing-indicator {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem;
+    align-self: flex-start;
+}
+
+.typing-indicator span {
+    width: 10px;
+    height: 10px;
+    background: #667eea;
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+    }
+
+    40% {
+        transform: scale(1);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .message {
+        max-width: 90%;
+    }
+
+    .chat-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .quick-prompts {
+        display: none;
+    }
+}
+
+/* Add to your existing CSS */
+.error-message {
+    background-color: #fee;
+    color: #c00;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px;
+    text-align: center;
+    border: 1px solid #fcc;
+    font-size: 14px;
+}
+
+.typing-indicator {
+    display: flex;
+    gap: 4px;
+    padding: 12px;
+    background: #f0f0f0;
+    border-radius: 20px;
+    width: fit-content;
+    margin: 10px;
+}
+
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background: #999;
+    border-radius: 50%;
+    animation: typing 1.4s infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0%, 60%, 100% {
+        transform: translateY(0);
+        opacity: 0.6;
+    }
+    30% {
+        transform: translateY(-10px);
+        opacity: 1;
+    }
+}
+
+/* Improve prompt chip styling */
+.prompt-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 4px;
+}
+
+.prompt-chip:hover:not(:disabled) {
+    background: #e8e8e8;
+    border-color: #999;
+}
+
+.prompt-chip .icon {
+    width: 16px;
+    height: 16px;
+}
+
+.prompt-chip:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
