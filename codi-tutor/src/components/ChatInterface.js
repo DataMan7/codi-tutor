@@ -6,27 +6,32 @@ import { sendMessage } from '../utils/api';
 import '../styles/chat.css';
 
 const ChatInterface = () => {
-    const [messages, setMessages] = useState([
+    // Use lazy initialization for the initial message so timestamp is set when component mounts
+    const [messages, setMessages] = useState(() => [
         {
             id: 1,
             sender: 'bot',
-            text: `Hey there, future coder! 🚀 I'm Codi, now powered by Kimi K2 + PicoClaw agent tech!
+            text: `Hey there, future coder! 🚀 I'm Codi, now powered by Kimi K2 + PicoClaw agent tech!\n\n
 
-I can help you:
-• 📝 Write and edit code files
-• 🔍 Search the web for coding help  
-• 🧩 Break down big projects into steps
-• 💻 Learn Python, JavaScript, or Scratch
-• 🐛 Debug your code with hints
-• 🎯 Build cool games and projects
+I can help you:\n
+• 📝 Write and edit code files\n
+• 🔍 Search the web for coding help\n  
+• 🧩 Break down big projects into steps\n
+• 💻 Learn Python, JavaScript, or Scratch\n
+• 🐛 Debug your code with hints\n
+• 🎯 Build cool games and projects\n\n
 
 What would you like to create today?`,
             time: new Date().toLocaleTimeString()
         }
     ]);
+    
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const messagesEndRef = useRef(null);
+    
+    // Use a ref counter for unique IDs, starting after the initial message (id=1)
+    const idCounter = useRef(2);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -39,26 +44,32 @@ What would you like to create today?`,
     const handleSend = async (text) => {
         setError(null);
 
+        // Create user message with unique ID from counter
         const userMsg = {
-            id: Date.now(),
+            id: idCounter.current++,
             sender: 'user',
             text,
             time: new Date().toLocaleTimeString()
         };
 
-        setMessages(prev => [...prev, userMsg]);
+        // Update messages with user message
+        const updatedMessages = [...messages, userMsg];
+        setMessages(updatedMessages);
         setIsLoading(true);
 
         try {
-            const responseText = await sendMessage([...messages, userMsg]);
+            // Send the updated messages to the API
+            const responseText = await sendMessage(updatedMessages);
 
+            // Create bot message with unique ID from counter
             const botMsg = {
-                id: Date.now() + 1,
+                id: idCounter.current++,
                 sender: 'bot',
                 text: responseText,
                 time: new Date().toLocaleTimeString()
             };
 
+            // Add bot response to messages
             setMessages(prev => [...prev, botMsg]);
         } catch (err) {
             setError("Failed to get response. Please try again.");

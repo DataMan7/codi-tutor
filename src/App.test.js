@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders Codi tutor welcome message', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  // Look for part of the initial bot message
+  const welcomeElement = screen.getByText(/Hey there, future coder!/i);
+  expect(welcomeElement).toBeInTheDocument();
 });
